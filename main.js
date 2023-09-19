@@ -1,4 +1,4 @@
-const input = require('prompt-sync')();
+const input = require('sync-input');
 
 const choice = (arr) => arr[Math.random() * arr.length | 0];
 
@@ -11,7 +11,7 @@ const getCurrentYear = (mode = "full") => {
   return mode == "short" ? ["year", year.slice(2)].join(" ") : year;
 }
 
-const adj = ["Excited", "Anxious", "Overweight", "Demonic", "Jumpy", "Misunderstood", "Squashed", "Gargantuan","Broad", "Crooked", "Curved", "Deep", "Even", "Flat", "Hilly", "Jagged", "Round", "Shallow", "Square", "Steep", "Straight", "Thick", "Thin", "Cooing", "Deafening", "Faint", "Harsh", "Pitched", "Hissing", "Hushed", "Husky", "Loud", "Melodic", "Moaning", "Mute", "Noisy", "Purring", "Quiet", "Raspy", "Screeching", "Shrill", "Silent", "Soft", "Squeaky", "Squealing", "Thundering", "Voiceless", "Whispering"];
+const adj = ["Excited", "Anxious", "Overweight", "Demonic", "Jumpy", "Misunderstood", "Squashed", "Gargantuan", "Broad", "Crooked", "Curved", "Deep", "Even", "Flat", "Hilly", "Jagged", "Round", "Shallow", "Square", "Steep", "Straight", "Thick", "Thin", "Cooing", "Deafening", "Faint", "Harsh", "Pitched", "Hissing", "Hushed", "Husky", "Loud", "Melodic", "Moaning", "Mute", "Noisy", "Purring", "Quiet", "Raspy", "Screeching", "Shrill", "Silent", "Soft", "Squeaky", "Squealing", "Thundering", "Voiceless", "Whispering"];
 const object = ["ProjectMaster", "TopicMaster", "CommittedLearner", "BrilliantMind", "HelpingHand", "SweetHeart", "Benefactor", "BountyHunter", "HintsNerd", "CommentHintNoMatter", "SpamCommentor", "SelfSolutionPraiser", "NoPythonDeveloper", "OneLiner", "JavaStreamer", "EverywhereCoolWriter", "SelfUpVoter", "DescriptionNonUnderstander", "GoPointer", "SQLrowAffector", "DjangoSavior", "FlaskWrapper", "HTMLhacker", "CSSteamLeader", "JSobjecter", "KotlinCompiler", "ImpicitCaster", "ExplicitCopyPastor", "BitwiseOperator", "BinaryMathematician"];
 
 
@@ -23,16 +23,24 @@ console.log("Hello! My name is {0}.\nI was created in {1}.".format(botName, crea
 console.log("Please, remind me your name.");
 const userName = input(">> ");
 
-console.log(`What ${"an".slice(0, +!userName + 1)} ${["undefined", "great"][+!!userName]} name you have, ${userName ? userName : "anonymousUser"}!`);
-
+console.log(`What ${"an".slice(0, +!userName + 1)} ${["undefined", "great"][+!!userName]} \
+            name you have, ${userName ? userName : "anonymousUser"}!`);
 
 const multipliers = {3: 70, 5: 21, 7: 15}, ageCeil = 105;
+const ageCriteria = {1: "questionable", 10: "proper", 20: "good", 30: "decent", 40: "very due", 50: "tough"};
+
 const joinLastAnd = (arr) => arr.join(", ").replace(/\,(?=[^,]*$)/, " and");
 
-console.log(`Let me guess your age.\nEnter remainders of dividing your age by ${joinLastAnd(Object.keys(multipliers))}.`);
+console.log(`Let me guess your age.\nEnter remainders of dividing your age by \
+            ${joinLastAnd(Object.keys(multipliers))}.`);
 
-const userAge = new Array(3).fill()
+const userAge = new Array(Object.getOwnPropertyNames(multipliers).length)
+  .fill()
   .map(_ => input(">> ")).map((el, i) => el * Object.values(multipliers)[i])
   .reduce((acc, x) => acc + x) % ageCeil;
 
-console.log(`Your age is ${userAge}; that's a good time to start programming!`);
+const userAgeDescription = (age, criteria) => criteria[Object.keys(criteria)
+  .filter(listedAge => listedAge <= age).reverse()[0]];
+
+console.log(`Your age is ${userAge}; that's a ${userAgeDescription(userAge, ageCriteria)} \
+             time to start programming!`);
