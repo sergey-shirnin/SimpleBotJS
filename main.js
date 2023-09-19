@@ -1,3 +1,5 @@
+const input = require('sync-input');
+
 const choice = (arr) => arr[Math.random() * arr.length | 0];
 
 String.prototype.format = function(...params) {
@@ -17,3 +19,8 @@ const botName = [adj, object].map(arr => choice(arr)).join("");
 const creationYear = getCurrentYear();
 
 console.log("Hello! My name is {0}.\nI was created in {1}.".format(botName, creationYear));
+console.log("Please, remind me your name.");
+
+const userName = input(">> ");
+console.log(`What ${"an".slice(0, +!userName + 1)} ${["undefined", "great"][+!!userName]} \
+            name you have, ${userName ? userName : "anonymousUser"}!`);
