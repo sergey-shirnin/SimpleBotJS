@@ -29,7 +29,7 @@ console.log(`What ${"an".slice(0, +!userName + 1)} ${["undefined", "great"][+!!u
 const multipliers = {3: 70, 5: 21, 7: 15}, ageCeil = 105;
 const joinLastAnd = (arr) => arr.join(", ").replace(/\,(?=[^,]*$)/, " and");
 
-console.log(`Let me guess your age.\nEnter remainders of dividing your age by ${joinLastAnd(Object.keys(multipliers))}.`)
+console.log(`Let me guess your age.\nEnter remainders of dividing your age by ${joinLastAnd(Object.keys(multipliers))}.`);
 
 const userAge = new Array(3).fill()
   .map(_ => input(">> ")).map((el, i) => el * Object.values(multipliers)[i])
